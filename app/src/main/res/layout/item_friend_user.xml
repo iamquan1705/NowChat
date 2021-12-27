@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginRight="15dp"
+    android:paddingBottom="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvtItemFriend"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon_username" />
+
+    <TextView
+        android:id="@+id/tvUserNameItemFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgAvtItemFriend"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:maxEms="3"
+        android:maxLines="2"
+        android:textColor="@color/text_color"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgstatusOnItemFriend"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/imgAvtItemFriend"
+        android:layout_marginLeft="-18dp"
+        android:layout_marginTop="-14dp"
+        android:layout_toRightOf="@id/imgAvtItemFriend"
+        android:background="@drawable/user_status_on"
+        android:visibility="gone" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgstatusOffItemFriend"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/imgAvtItemFriend"
+        android:layout_marginLeft="-18dp"
+        android:layout_marginTop="-14dp"
+        android:layout_toRightOf="@id/imgAvtItemFriend"
+        android:background="@drawable/user_status_off"
+        android:visibility="gone" />
+
+</RelativeLayout>

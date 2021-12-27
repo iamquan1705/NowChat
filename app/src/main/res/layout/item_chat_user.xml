@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="25dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvtItemChat"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/icon_username" />
+
+    <TextView
+        android:id="@+id/tvUserNameItemChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/imgAvtItemChat"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Nguyen Hong Quan"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvLastMessenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUserNameItemChat"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/imgAvtItemChat"
+        android:textSize="12sp" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgStatusOnItemChat"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/imgAvtItemChat"
+        android:layout_marginLeft="-18dp"
+        android:layout_marginTop="-14dp"
+        android:layout_toRightOf="@id/imgAvtItemChat"
+        android:background="@drawable/user_status_on"
+        android:visibility="gone" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgStatusOffItemChat"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/imgAvtItemChat"
+        android:layout_marginLeft="-18dp"
+        android:layout_marginTop="-14dp"
+        android:layout_toRightOf="@id/imgAvtItemChat"
+        android:background="@drawable/user_status_off"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "718413528532",
+    "project_id": "messdb-a9086",
+    "storage_bucket": "messdb-a9086.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718413528532:android:cbfb4571a104615c8dea41",
+        "android_client_info": {
+          "package_name": "com.iamquan.nowchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718413528532-bovrvgjhji8m53bk9jmkhn757gbkc533.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA79tgQD_FVLwjf1R_Nyi-dGgSF5GJwjuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718413528532-bovrvgjhji8m53bk9jmkhn757gbkc533.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
