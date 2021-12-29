@@ -6,10 +6,11 @@ object Utils {
     const val PASSWORD = "password"
     const val ID = "id"
     const val EMAIL = "email"
+    const val SEX = "sex"
+    const val PHONE = "phone"
+    const val BIRTHDAY = "birthday"
     const val STATUS = "status"
     const val SEARCH = "search"
-
     const val USERS = "users"
-
     const val DEFAULT = "default"
 }

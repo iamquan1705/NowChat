@@ -35,7 +35,6 @@ class HomeFragment() : Fragment() {
         getUsersData()
         return binding.root
     }
-
     private fun getUsersData() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
@@ -51,17 +50,21 @@ class HomeFragment() : Fragment() {
                             }
                         }
                     }
-                    adapter = UserChatAdapter(requireContext(), listUser, 1)
-                    binding.rvList.adapter = adapter
-                    binding.rvList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 }
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
                 }
             })
+            binding.rvList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = UserChatAdapter(requireContext(), listUser, 1)
+            binding.rvList.adapter = adapter
+            adapter.notifyDataSetChanged()
+
         }
     }
-
+    override fun onResume() {
+        super.onResume()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.edtSearch.isFocusable =false

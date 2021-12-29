@@ -24,9 +24,7 @@ import android.net.Uri
 import android.R.attr.data
 import java.io.InputStream
 import android.R.attr.data
-
-
-
+import com.iamquan.nowchat.databinding.FragmentProfileBinding
 
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
@@ -54,30 +52,24 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, Resquet_code_library)
-
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Resquet_code_camera && resultCode == RESULT_OK && data != null) {
             bmAvatar = data.extras?.get("data") as Bitmap
-            isCheckSetAvatar =true
         }
 
 //        if (requestCode == Resquet_code_library && resultCode == RESULT_OK && data!=null) {
 //            val uri = data.data
 //            try {
-//                val inputStream: InputStream = get.openInputStream(uri)
+//                val inputStream: InputStream = con.openInputStream(uri)
 //                val bitmap = BitmapFactory.decodeStream(inputStream)
 //            }
 //        }
 
     }
-    fun isCheckSetAvatar() : Boolean {
-            return isCheckSetAvatar
-        }
 
 }
 

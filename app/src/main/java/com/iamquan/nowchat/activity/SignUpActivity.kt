@@ -32,12 +32,14 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
-
     private fun signUp() {
         var username = binding.edtUserNameSU.text.toString().trim()
         var email = binding.edtEmailSU.text.toString().trim()
         var password = binding.edtPasswordSU.text.toString().trim()
         var repassword = binding.edtRePasswordSU.text.toString().trim()
+        var sex = binding.edtSexSU.text.toString().trim()
+        var phone = binding.edtPhoneSU.text.toString().trim()
+        var birthday = binding.edtBirthDaySU.text.toString().trim()
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(
                 this,
@@ -56,25 +58,30 @@ class SignUpActivity : AppCompatActivity() {
             } else {
                 mFireBase.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
                     if (it.isSuccessful) {
-                     val uid = mFireBase.uid
+                        val uid = mFireBase.uid
                         val hashMap: HashMap<String, Any> = HashMap()
                         hashMap[Utils.ID] = uid!!
                         hashMap[Utils.EMAIL] = email
                         hashMap[Utils.USER_NAME] = username
                         hashMap[Utils.AVATAR] = Utils.DEFAULT
                         hashMap[Utils.PASSWORD] = password
+                        hashMap[Utils.SEX] = sex
+                        hashMap[Utils.BIRTHDAY] = birthday
+                        hashMap[Utils.PASSWORD] = password
+                        hashMap[Utils.PHONE] = phone
                         hashMap[Utils.STATUS] = 1
                         hashMap[Utils.SEARCH] = username.lowercase()
                         val ref = FirebaseDatabase.getInstance().getReference(Utils.USERS)
                         ref.child(uid).setValue(hashMap).addOnSuccessListener {
-                                Toast.makeText(
-                                    this,
-                                    "successfull",
-                                    Toast.LENGTH_SHORT)
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
+                            Toast.makeText(
+                                this,
+                                "successfull",
+                                Toast.LENGTH_SHORT
+                            )
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
                     } else {
                         Toast.makeText(
                             this,

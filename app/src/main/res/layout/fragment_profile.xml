@@ -39,6 +39,7 @@
             android:id="@+id/imgImageProfile"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:visibility="invisible"
             android:layout_marginLeft="65dp"
             android:layout_marginTop="65dp"
             android:background="@drawable/ic_image" />
@@ -53,6 +54,17 @@
         app:layout_constraintStart_toEndOf="@+id/rlAvatarProfile"
         app:layout_constraintTop_toBottomOf="@+id/rlAvatarProfile" />
 
+    <TextView
+        android:id="@+id/tvEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:textColor="#ffffff"
+        android:background="@drawable/custom_button"
+        android:padding="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLogOut"
+        app:layout_constraintStart_toStartOf="@+id/llName"
+        app:layout_constraintTop_toTopOf="@+id/tvLogOut" />
     <LinearLayout
         android:id="@+id/llName"
         android:layout_width="match_parent"
@@ -75,13 +87,16 @@
             android:gravity="center"
             android:textColor="#ffffff" />
 
-        <TextView
-            android:id="@+id/tvNameProfile"
+        <EditText
+            android:id="@+id/edtNameProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:text="Nguyễn Hồng Quân "
+            android:background="@null"
+            android:textSize="12dp"
+            android:enabled="false"
             android:gravity="center_vertical"
+            android:text="Nguyễn Hồng Quân "
             android:textColor="#ffffff" />
     </LinearLayout>
 
@@ -104,13 +119,16 @@
             android:gravity="center_vertical"
             android:textColor="#ffffff" />
 
-        <TextView
-            android:id="@+id/tvBirthDayProfile"
+        <EditText
+            android:id="@+id/edtBirthDayProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
-            android:text="Nguyễn Hồng Quân "
+            android:background="@null"
+            android:textSize="12dp"
+            android:enabled="false"
+            android:text="17/05/2000 "
             android:textColor="#ffffff" />
     </LinearLayout>
 
@@ -133,13 +151,16 @@
             android:gravity="center"
             android:textColor="#ffffff" />
 
-        <TextView
-            android:id="@+id/tvSexProfile"
+        <EditText
+            android:id="@+id/edtSexProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:textSize="15dp"
+            android:enabled="false"
             android:gravity="center_vertical"
-            android:text="Nguyễn Hồng Quân "
+            android:text="Nam "
             android:textColor="#ffffff" />
     </LinearLayout>
 
@@ -163,19 +184,22 @@
             android:gravity="center"
             android:textColor="#ffffff" />
 
-        <TextView
-            android:id="@+id/tvEmailProfile"
+        <EditText
+            android:id="@+id/edtEmailProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:text="********"
+            android:text="quanquan170520@gmail.com"
             android:gravity="center_vertical"
+            android:background="@null"
+            android:textSize="12dp"
+            android:enabled="false"
             android:layout_gravity="center"
             android:textColor="#ffffff" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/llPassword"
+        android:id="@+id/llPhone"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="20dp"
@@ -190,48 +214,70 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:text="Pasword "
+            android:text="Phone "
             android:gravity="center"
             android:textColor="#ffffff" />
 
-        <TextView
-            android:id="@+id/tvPasswordProfile"
+        <EditText
+            android:id="@+id/edtPhoneProfile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:text="********"
+            android:text="0333732000"
+            android:textSize="12dp"
+            android:background="@null"
+            android:enabled="false"
             android:gravity="center_vertical"
             android:layout_gravity="center"
             android:textColor="#ffffff" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tvChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_button"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Change Password "
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="@+id/llPhone"
+        app:layout_constraintStart_toStartOf="@+id/llPhone"
+        app:layout_constraintTop_toBottomOf="@+id/llPhone" />
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/llSubmit"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_margin="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/custom_button"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llPassword">
+        app:layout_constraintEnd_toEndOf="@id/llPhone"
+        app:layout_constraintStart_toStartOf="@id/llPhone"
+        app:layout_constraintTop_toBottomOf="@+id/tvChangePassword">
+    <android.widget.Button
+        android:id="@+id/btnSaveEdit"
+        android:text="Save"
+        android:textSize="11dp"
+        android:textColor="#ffffff"
+        android:layout_marginRight="20dp"
+        android:visibility="invisible"
+        android:background="@drawable/custom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      />
 
-        <TextView
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:text="Phone "
-            android:gravity="center"
-            android:textColor="#ffffff" />
-
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:text="********"
-            android:gravity="center_vertical"
-            android:layout_gravity="center"
-            android:textColor="#ffffff" />
+    <android.widget.Button
+        android:id="@+id/btnCanelEdit"
+        android:text="Cance"
+        android:textSize="11dp"
+        android:textColor="#ffffff"
+        android:visibility="invisible"
+        android:background="@drawable/custom_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
