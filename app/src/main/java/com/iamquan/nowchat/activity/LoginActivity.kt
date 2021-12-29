@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
         binding.tvNoAccount.setOnClickListener {
             var intent = Intent(this,SignUpActivity::class.java)
             startActivity(intent)
+
         }
         binding.tvForgotPass.setOnClickListener {
 
@@ -44,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         var intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
+                        this.finish()
                     } else {
                         Toast.makeText(this,"Email or Password is wrong", Toast.LENGTH_SHORT)
                             .show()

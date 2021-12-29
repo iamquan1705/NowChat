@@ -46,6 +46,7 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.imgImageProfile.setOnClickListener {
+            var bottomSheetFragment : BottomSheetFragment
             BottomSheetFragment().show(childFragmentManager, "ABC")
         }
         binding.tvEditProfile.setOnClickListener {
