@@ -1,11 +1,14 @@
 package com.iamquan.nowchat.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.iamquan.nowchat.activity.ChatActivity
 import com.iamquan.nowchat.databinding.ItemFriendUserBinding
 import com.iamquan.nowchat.model.User
 import com.iamquan.nowchat.utils.Utils
@@ -30,6 +33,12 @@ class UserChatAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listUser[position])
+        var id = listUser[position].id
+        holder.itemView.setOnClickListener {
+            var intent = Intent(context,ChatActivity::class.java)
+            intent.putExtra(Utils.ID,id)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = listUser.size

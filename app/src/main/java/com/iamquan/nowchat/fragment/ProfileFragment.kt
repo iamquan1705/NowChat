@@ -110,6 +110,7 @@ class ProfileFragment : Fragment() {
         if (requestCode == 123 && resultCode == Activity.RESULT_OK && data != null) {
             mAvtUri = data.data!!
             Glide.with(requireContext()).load(mAvtUri).into(binding.imgAvtProfile)
+            updateAvatar()
         }
     }
 
@@ -194,11 +195,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun getFileExtension(uri: Uri): String? {
-        val contentResolver: ContentResolver = requireContext().getContentResolver()
-        val mimeTypeMap = MimeTypeMap.getSingleton()
-        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
-    }
+
 
     fun updateAvatar() {
         if (mAvtUri != null) {
@@ -221,7 +218,6 @@ class ProfileFragment : Fragment() {
         hashMap.put(Utils.SEX, binding.edtSexProfile.text.toString())
         hashMap.put(Utils.BIRTHDAY, binding.edtBirthDayProfile.text.toString())
         hashMap.put(Utils.PHONE, binding.edtPhoneProfile.text.toString())
-        updateAvatar()
         FirebaseDatabase.getInstance().getReference(Utils.USERS).child(idCurrent)
             .updateChildren(hashMap).addOnCompleteListener {
                 if (it.isSuccessful) {
