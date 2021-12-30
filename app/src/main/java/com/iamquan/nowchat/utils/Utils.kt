@@ -13,4 +13,6 @@ object Utils {
     const val SEARCH = "search"
     const val USERS = "users"
     const val DEFAULT = "default"
+
+    const val UPLOADS = "uploads"
 }

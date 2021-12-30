@@ -32,7 +32,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     private var Resquet_code_camera = 123
     private var Resquet_code_library = 456
     lateinit var bmAvatar : Bitmap
-    private var isCheckSetAvatar = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,8 +58,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Resquet_code_camera && resultCode == RESULT_OK && data != null) {
             bmAvatar = data.extras?.get("data") as Bitmap
+            dismiss()
         }
-
 //        if (requestCode == Resquet_code_library && resultCode == RESULT_OK && data!=null) {
 //            val uri = data.data
 //            try {

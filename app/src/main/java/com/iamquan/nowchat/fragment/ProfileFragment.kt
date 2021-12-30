@@ -22,10 +22,21 @@ import com.iamquan.nowchat.databinding.FragmentProfileBinding
 import com.iamquan.nowchat.model.User
 import com.iamquan.nowchat.utils.Utils
 import android.R
+import android.app.Activity
 import android.app.Dialog
+import android.content.ContentResolver
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
+import android.webkit.MimeTypeMap
 import android.widget.EditText
+import com.google.android.gms.tasks.Task
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
 import com.iamquan.nowchat.databinding.DialogChangePasswordBinding
-import java.util.HashMap
+import java.util.*
 
 
 class ProfileFragment : Fragment() {
@@ -33,6 +44,8 @@ class ProfileFragment : Fragment() {
     private val mAuth: FirebaseAuth? = null
     private var passwordUCurrent: String = ""
     private var idCurrent: String = ""
+    private var mUploadTask: StorageTask<*>? = null
+    private lateinit var mAvtUri: Uri
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,8 +59,13 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.imgImageProfile.setOnClickListener {
-            var bottomSheetFragment : BottomSheetFragment
-            BottomSheetFragment().show(childFragmentManager, "ABC")
+//            BottomSheetFragment().show(childFragmentManager, "ABC")
+//            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//            startActivityForResult(intent, 123)
+
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 123)
         }
         binding.tvEditProfile.setOnClickListener {
             enableEdit(true)
@@ -85,6 +103,14 @@ class ProfileFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 123 && resultCode == Activity.RESULT_OK && data != null) {
+            mAvtUri = data.data!!
+            Glide.with(requireContext()).load(mAvtUri).into(binding.imgAvtProfile)
+        }
     }
 
     fun getProfileUser() {
@@ -167,12 +193,35 @@ class ProfileFragment : Fragment() {
                 }
         }
     }
+
+    private fun getFileExtension(uri: Uri): String? {
+        val contentResolver: ContentResolver = requireContext().getContentResolver()
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri))
+    }
+
+    fun updateAvatar() {
+        if (mAvtUri != null) {
+            var fileName = UUID.randomUUID().toString()
+            val ref = FirebaseStorage.getInstance().getReference("/images/$fileName")
+            ref.putFile(mAvtUri).addOnSuccessListener {
+                ref.downloadUrl.addOnSuccessListener {
+                    val hashMap: HashMap<String, Any> = HashMap()
+                    hashMap.put(Utils.AVATAR, it.toString())
+                    FirebaseDatabase.getInstance().getReference(Utils.USERS).child(idCurrent)
+                        .updateChildren(hashMap)
+                }
+            }
+        }
+    }
+
     fun saveEdit() {
         val hashMap: HashMap<String, Any> = HashMap()
         hashMap.put(Utils.USER_NAME, binding.edtNameProfile.text.toString())
         hashMap.put(Utils.SEX, binding.edtSexProfile.text.toString())
         hashMap.put(Utils.BIRTHDAY, binding.edtBirthDayProfile.text.toString())
         hashMap.put(Utils.PHONE, binding.edtPhoneProfile.text.toString())
+        updateAvatar()
         FirebaseDatabase.getInstance().getReference(Utils.USERS).child(idCurrent)
             .updateChildren(hashMap).addOnCompleteListener {
                 if (it.isSuccessful) {
