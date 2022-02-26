@@ -1,32 +1,23 @@
 package com.iamquan.nowchat.fragment
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.iamquan.nowchat.R
 import com.iamquan.nowchat.adapter.UserChatAdapter
 import com.iamquan.nowchat.databinding.FragmentHomeBinding
 import com.iamquan.nowchat.model.User
-import com.iamquan.nowchat.utils.Utils
+import com.iamquan.nowchat.vm.ListUserViewModel
 
 class HomeFragment() : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private var listUser = arrayListOf<User>()
-    private lateinit var mFireAuth: FirebaseAuth
-    private lateinit var mUser: FirebaseUser
-    private lateinit var adapter: UserChatAdapter
+    private val viewmodel: ListUserViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,31 +28,13 @@ class HomeFragment() : Fragment() {
     }
 
     private fun getUsersData() {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser != null) {
-            val reference = FirebaseDatabase.getInstance().getReference(Utils.USERS)
-            reference.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    listUser.clear()
-                    for (dataSnapshot in snapshot.children) {
-                        val user = dataSnapshot.getValue(User::class.java)
-                        if (user != null) {
-                            if (!user.id.equals(currentUser.uid)) {
-                                listUser.add(user)
-                            }
-                        }
-                    }
-                }
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-            })
-            binding.rvList.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = UserChatAdapter(requireContext(), listUser, 1)
+        viewmodel.allUser()
+        viewmodel.listuser.observe(viewLifecycleOwner, {
+            val adapter = UserChatAdapter(requireContext(), it,1)
             binding.rvList.adapter = adapter
-            adapter.notifyDataSetChanged()
-        }
+            binding.rvList.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        })
     }
 
     override fun onResume() {

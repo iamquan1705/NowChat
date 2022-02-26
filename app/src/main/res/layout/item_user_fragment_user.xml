@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvtItemChat"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/icon_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUserNameItemChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgAvtItemChat"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Nguyen Hong Quan"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@+id/imgAvtItemChat"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgbtInfo"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_info"
+        android:background="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/imgbtChat"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_chat"
+        android:background="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imgbtInfo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

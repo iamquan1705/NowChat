@@ -30,12 +30,14 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 import android.widget.EditText
+import androidx.fragment.app.viewModels
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.iamquan.nowchat.databinding.DialogChangePasswordBinding
+import com.iamquan.nowchat.vm.UserViewModel
 import java.util.*
 
 
@@ -44,7 +46,7 @@ class ProfileFragment : Fragment() {
     private val mAuth: FirebaseAuth? = null
     private var passwordUCurrent: String = ""
     private var idCurrent: String = ""
-    private var mUploadTask: StorageTask<*>? = null
+    private val  userViewModel : UserViewModel by viewModels()
     private lateinit var mAvtUri: Uri
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -118,29 +120,21 @@ class ProfileFragment : Fragment() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         idCurrent = currentUser?.uid.toString()
         if (currentUser != null) {
-            val reference =
-                FirebaseDatabase.getInstance().getReference(Utils.USERS).child(idCurrent)
-            reference.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val user = snapshot.getValue(User::class.java)
-                    binding.edtEmailProfile.setText(user?.email)
-                    binding.edtNameProfile.setText(user?.username)
-                    binding.edtBirthDayProfile.setText(user?.birthday)
-                    binding.edtSexProfile.setText(user?.sex)
-                    binding.edtPhoneProfile.setText(user?.phone)
-                    passwordUCurrent = user?.password.toString()
-                    if (user?.status == 1) {
-                        binding.swStatus.isChecked = true
-                    } else if (user?.status == 0) {
-                        binding.swStatus.isChecked = false
-                    }
-                    if (!user?.avatar.equals(Utils.DEFAULT)) {
-                        Glide.with(requireContext()).load(user?.avatar).into(binding.imgAvtProfile)
-                    }
+            userViewModel.getUserById(idCurrent)
+            userViewModel.user.observe(viewLifecycleOwner,{
+                binding.edtEmailProfile.setText(it?.email)
+                binding.edtNameProfile.setText(it?.username)
+                binding.edtBirthDayProfile.setText(it?.birthday)
+                binding.edtSexProfile.setText(it?.sex)
+                binding.edtPhoneProfile.setText(it?.phone)
+                passwordUCurrent = it?.password.toString()
+                if (it?.status == 1) {
+                    binding.swStatus.isChecked = true
+                } else if (it?.status == 0) {
+                    binding.swStatus.isChecked = false
                 }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                if (!it?.avatar.equals(Utils.DEFAULT)) {
+                    Glide.with(requireContext()).load(it?.avatar).into(binding.imgAvtProfile)
                 }
             })
         }
