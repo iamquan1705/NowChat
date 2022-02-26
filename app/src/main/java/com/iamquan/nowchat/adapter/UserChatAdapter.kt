@@ -42,6 +42,7 @@ class UserChatAdapter(
     }
 
     override fun getItemCount(): Int = listUser.size
+
     class ViewHolder(private var binding: ItemFriendUserBinding, private var context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {

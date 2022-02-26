@@ -12,18 +12,19 @@ import com.iamquan.nowchat.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var mFireBase : FirebaseAuth
+    private lateinit var mFireBase: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.lifecycleOwner = this
         mFireBase = Firebase.auth
         binding.btnLogin.setOnClickListener {
-            login(binding.edtEmail,binding.edtPassword)
+            login(binding.edtEmail, binding.edtPassword)
         }
 
         binding.tvNoAccount.setOnClickListener {
-            var intent = Intent(this,SignUpActivity::class.java)
+            var intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
 
         }
@@ -31,26 +32,27 @@ class LoginActivity : AppCompatActivity() {
 
         }
     }
-    fun login(edtEmail:EditText,edtPassword:EditText) {
-            var email = edtEmail.text.toString()
-            var password = edtPassword.text.toString()
-            if (email.isEmpty()) {
-                edtEmail.error = "Email is requỉed"
-            } else if (password.isEmpty()) {
-                edtPassword.error = "Password is requỉed"
-            } else if (password.length < 6 ) {
-                edtPassword.error = "Password must be than 6 characters"
-            } else {
-                mFireBase.signInWithEmailAndPassword(email,password).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        var intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        this.finish()
-                    } else {
-                        Toast.makeText(this,"Email or Password is wrong", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+
+    fun login(edtEmail: EditText, edtPassword: EditText) {
+        var email = edtEmail.text.toString()
+        var password = edtPassword.text.toString()
+        if (email.isEmpty()) {
+            edtEmail.error = "Email is requỉed"
+        } else if (password.isEmpty()) {
+            edtPassword.error = "Password is requỉed"
+        } else if (password.length < 6) {
+            edtPassword.error = "Password must be than 6 characters"
+        } else {
+            mFireBase.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    this.finish()
+                } else {
+                    Toast.makeText(this, "Email or Password is wrong", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
+        }
     }
 }

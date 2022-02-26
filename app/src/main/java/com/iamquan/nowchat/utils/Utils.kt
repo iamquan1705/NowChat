@@ -15,4 +15,10 @@ object Utils {
     const val DEFAULT = "default"
 
     const val UPLOADS = "uploads"
+
+    const val MESSAGE= "message"
+    const val SENDER_ID= "senderid"
+    const val RECEIVER_ID= "receiverid"
+    const val SEEN= "seen"
+    const val CHATS= "chats"
 }
