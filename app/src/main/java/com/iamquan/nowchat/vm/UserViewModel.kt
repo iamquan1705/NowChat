@@ -25,7 +25,6 @@ class UserViewModel : ViewModel() {
                 val user = snapshot.getValue(User::class.java)
                 _user.postValue(user!!)
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }

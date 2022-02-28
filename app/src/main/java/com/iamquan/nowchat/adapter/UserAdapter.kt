@@ -33,6 +33,7 @@ class UserAdapter (private var context: Context,
     }
 
     override fun getItemCount(): Int = listUser.size
+
     class ViewHolder(private var binding: ItemUserFragmentUserBinding, private var context: Context) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {

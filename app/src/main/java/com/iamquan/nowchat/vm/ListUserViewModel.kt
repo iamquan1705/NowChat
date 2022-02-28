@@ -16,6 +16,9 @@ class ListUserViewModel : ViewModel() {
     val listuser: LiveData<List<User>>
         get() = _listuser
 
+    init {
+        allUser()
+    }
     fun allUser() {
         val lus = arrayListOf<User>()
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -34,12 +37,9 @@ class ListUserViewModel : ViewModel() {
                     }
                     _listuser.postValue(lus)
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     TODO("Not yet implemented")
                 }
-
-
             })
         }
     }
