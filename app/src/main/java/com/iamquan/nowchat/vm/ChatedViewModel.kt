@@ -29,8 +29,6 @@ class ChatedViewModel : ViewModel() {
 
         getListChated()
     }
-
-
     fun getchated(listus: List<User>, currenID: String) {
         var listDataMess = arrayListOf<DataMess>()
         val reference =
@@ -40,28 +38,33 @@ class ChatedViewModel : ViewModel() {
                 for (dataSnapshot in snapshot.children) {
                     val chat = dataSnapshot.getValue(Chat::class.java)
                     if (chat != null) {
+                        if (chat.senderid.toString()
+                                .equals(currenID) || (chat.receiverid.toString()
+                                .equals(currenID))
+                        ) {
                         for (us in listus) {
                             var dataMess: DataMess? = null
-                            if (chat.senderid.toString().equals(us.id.toString())) {
-                                dataMess = DataMess(
-                                    us.id.toString(),
-                                    us.username.toString(),
-                                    us.id.toString(),
-                                    chat.message,
-                                    us.avatar.toString()
-                                )
+                                if (chat.senderid.toString().equals(us.id.toString())) {
+                                    dataMess = DataMess(
+                                        us.id.toString(),
+                                        us.username.toString(),
+                                        us.id.toString(),
+                                        chat.message,
+                                        us.avatar.toString()
+                                    )
 
-                            } else if (chat.receiverid.toString().equals(us.id.toString())) {
-                                dataMess = DataMess(
-                                    us.id.toString(),
-                                    us.username.toString(),
-                                    currenID,
-                                    chat.message,
-                                    us.avatar.toString()
-                                )
-                            }
-                            if (dataMess != null) {
-                                listDataMess.add(dataMess)
+                                } else if (chat.receiverid.toString().equals(us.id.toString())) {
+                                    dataMess = DataMess(
+                                        us.id.toString(),
+                                        us.username.toString(),
+                                        currenID,
+                                        chat.message,
+                                        us.avatar.toString()
+                                    )
+                                }
+                                if (dataMess != null) {
+                                    listDataMess.add(dataMess)
+                                }
                             }
                         }
                     }

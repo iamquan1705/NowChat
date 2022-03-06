@@ -9,12 +9,21 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.iamquan.nowchat.databinding.ActivityLoginBinding
+import com.iamquan.nowchat.sharedpreferences.SharedPreferences
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var mFireBase: FirebaseAuth
+    private lateinit var sharedPreference : SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+         sharedPreference = SharedPreferences(this)
+        val str_login_status = sharedPreference!!.getPreferenceString("login_status")
+        if (str_login_status != null) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.lifecycleOwner = this
@@ -46,9 +55,12 @@ class LoginActivity : AppCompatActivity() {
         } else {
             mFireBase.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    var intent = Intent(this, MainActivity::class.java)
+                    sharedPreference!!.save_String("email","iamquan")
+                    sharedPreference!!.save_String("password","123")
+                    sharedPreference!!.save_String("login_status", "1")
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    this.finish()
+                    finish()
                 } else {
                     Toast.makeText(this, "Email or Password is wrong", Toast.LENGTH_SHORT)
                         .show()

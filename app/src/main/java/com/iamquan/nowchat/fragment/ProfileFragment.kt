@@ -37,11 +37,13 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.iamquan.nowchat.databinding.DialogChangePasswordBinding
+import com.iamquan.nowchat.sharedpreferences.SharedPreferences
 import com.iamquan.nowchat.vm.UserViewModel
 import java.util.*
 
 
 class ProfileFragment : Fragment() {
+    var sharedPreference:SharedPreferences? = null
     private lateinit var binding: FragmentProfileBinding
     private val mAuth: FirebaseAuth? = null
     private var passwordUCurrent: String = ""
@@ -93,9 +95,10 @@ class ProfileFragment : Fragment() {
                 dialog.cancel()
             }
         }
-
+        sharedPreference = SharedPreferences(requireContext())
         binding.tvLogOut.setOnClickListener {
             mAuth?.signOut()
+            sharedPreference!!.clearSharedPreference()
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             activity?.finish()
