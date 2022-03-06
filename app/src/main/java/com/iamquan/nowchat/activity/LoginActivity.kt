@@ -29,7 +29,8 @@ class LoginActivity : AppCompatActivity() {
 
         }
         binding.tvForgotPass.setOnClickListener {
-
+            var intent = Intent(this, ResetpasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 

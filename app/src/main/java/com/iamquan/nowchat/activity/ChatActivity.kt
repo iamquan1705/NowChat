@@ -117,4 +117,21 @@ class ChatActivity : AppCompatActivity() {
             binding.edtMessage.setText("")
         }
     }
+    fun getToken() {
+        val databaseReference = FirebaseDatabase.getInstance().getReference(Utils.USERS).child(mReceiverId!!)
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val token = snapshot.child("token").value.toString()
+                    val name = snapshot.child(Utils.USER_NAME).value.toString()
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
 }

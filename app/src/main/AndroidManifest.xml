@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NowChat">
         <activity
+            android:name=".activity.ResetpasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.InfoActivity"
             android:exported="false" />
         <activity

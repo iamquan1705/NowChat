@@ -21,4 +21,7 @@ object Utils {
     const val RECEIVER_ID= "receiverid"
     const val SEEN= "seen"
     const val CHATS= "chats"
+
+    const val TOKEN = "token"
+
 }
