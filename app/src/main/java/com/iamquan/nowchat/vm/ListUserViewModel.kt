@@ -44,4 +44,28 @@ class ListUserViewModel : ViewModel() {
             })
         }
     }
+    fun searchUser(key : String) {
+        val lus = arrayListOf<User>()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val reference = FirebaseDatabase.getInstance().getReference(Utils.USERS)
+            reference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    lus.clear()
+                    for (dataSnapshot in snapshot.children) {
+                        val user = dataSnapshot.getValue(User::class.java)
+                        if (user != null && user.username?.contains(key) == true) {
+                            if (!user.id.equals(currentUser.uid)) {
+                                lus.add(user)
+                            }
+                        }
+                    }
+                    _listuser.postValue(lus)
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+        }
+    }
 }
