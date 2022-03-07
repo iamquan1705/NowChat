@@ -1,5 +1,6 @@
 package com.iamquan.nowchat.fragment
 
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,15 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.iamquan.nowchat.adapter.UserChatAdapter
 import com.iamquan.nowchat.adapter.UserChatedAdapter
 import com.iamquan.nowchat.databinding.FragmentHomeBinding
 import com.iamquan.nowchat.model.DataMess
-import com.iamquan.nowchat.model.User
 import com.iamquan.nowchat.vm.ChatedViewModel
-import com.iamquan.nowchat.vm.ListUserViewModel
+
 
 class HomeFragment() : Fragment() {
 

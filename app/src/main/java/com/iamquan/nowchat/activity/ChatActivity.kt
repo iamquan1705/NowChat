@@ -7,27 +7,34 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.gson.Gson
 import com.iamquan.nowchat.adapter.ChatAdapter
 import com.iamquan.nowchat.databinding.ActivityChatBinding
 import com.iamquan.nowchat.model.Chat
 import com.iamquan.nowchat.model.User
 import com.iamquan.nowchat.utils.*
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import com.iamquan.nowchat.notification.*
 class ChatActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityChatBinding
     private var mReceiverId: String = ""
     private var mSender: String = ""
     private lateinit var adapter: ChatAdapter
     private var mChatList = arrayListOf<Chat>()
     private var mAvatar: String = ""
+    var topic = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         var id = intent.getStringExtra(Utils.ID)
         mReceiverId = id.toString()
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -68,14 +75,22 @@ class ChatActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.btnSent.setOnClickListener {
-            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                var message: String = binding.edtMessage.text.toString().trim { it <= ' ' }
-                var senderId = FirebaseAuth.getInstance().currentUser!!.uid
-                sentMessage(message, senderId, mReceiverId)
+            if (binding.edtMessage.text.toString().isEmpty()) {
+
+            } else {
+                if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                    var message: String = binding.edtMessage.text.toString().trim { it <= ' ' }
+                    var senderId = FirebaseAuth.getInstance().currentUser!!.uid
+                    sentMessage(message, senderId, mReceiverId)
+                }
+                topic = "/topics/$mReceiverId"
+                PushNotification(NotificationData("iamquan",binding.edtMessage.text.toString()),
+                    topic).also {
+                    sendNotification(it)
+                }
             }
         }
     }
-
     fun getMessage(senderId: String, receiverId: String, context: Context) {
         val reference =
             FirebaseDatabase.getInstance().getReference(Utils.CHATS)
@@ -117,8 +132,10 @@ class ChatActivity : AppCompatActivity() {
             binding.edtMessage.setText("")
         }
     }
+
     fun getToken() {
-        val databaseReference = FirebaseDatabase.getInstance().getReference(Utils.USERS).child(mReceiverId!!)
+        val databaseReference =
+            FirebaseDatabase.getInstance().getReference(Utils.USERS).child(mReceiverId!!)
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -133,5 +150,18 @@ class ChatActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if(response.isSuccessful) {
+                Log.d("TAG", "Response: ${Gson().toJson(response)}")
+            } else {
+                Log.e("TAG", response.errorBody()!!.string())
+            }
+        } catch(e: Exception) {
+            Log.e("TAG", e.toString())
+        }
     }
 }
