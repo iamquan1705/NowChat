@@ -69,6 +69,7 @@ class ChatAdapter(
         fun bind(chat: Chat) {
             binding.message.text = chat.message
             Glide.with(context).load(mAvatar).error(R.mipmap.ic_launcher).into(binding.avtUser)
+
         }
     }
 

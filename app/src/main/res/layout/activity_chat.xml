@@ -38,18 +38,6 @@
                 android:background="@drawable/user_status_on"
                 android:visibility="gone" />
 
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgStatusOffChat"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_below="@id/imgAvtCurrent"
-                android:layout_marginLeft="-12dp"
-                android:layout_marginTop="-10dp"
-                android:layout_toRightOf="@id/imgAvtCurrent"
-                android:background="@drawable/user_status_off"
-                android:visibility="gone" />
-
         </RelativeLayout>
 
         <TextView

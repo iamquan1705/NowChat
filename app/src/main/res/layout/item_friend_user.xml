@@ -28,27 +28,4 @@
         android:textSize="10sp"
         android:textStyle="bold" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgstatusOnItemFriend"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_below="@id/imgAvtItemFriend"
-        android:layout_marginLeft="-18dp"
-        android:layout_marginTop="-14dp"
-        android:layout_toRightOf="@id/imgAvtItemFriend"
-        android:background="@drawable/user_status_on"
-        android:visibility="gone" />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgstatusOffItemFriend"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_below="@id/imgAvtItemFriend"
-        android:layout_marginLeft="-18dp"
-        android:layout_marginTop="-14dp"
-        android:layout_toRightOf="@id/imgAvtItemFriend"
-        android:background="@drawable/user_status_off"
-        android:visibility="gone" />
-
 </RelativeLayout>

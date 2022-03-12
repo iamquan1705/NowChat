@@ -50,14 +50,11 @@ class ChatActivity : AppCompatActivity() {
                     mAvatar = user?.avatar.toString()
                     Glide.with(applicationContext).load(user?.avatar).into(binding.imgAvtCurrent)
                     if (user?.status == 0) {
-                        binding.imgStatusOffChat.setVisibility(View.VISIBLE)
                         binding.imgStatusOnChat.setVisibility(View.GONE)
                     } else if (user?.status == 1) {
-                        binding.imgStatusOffChat.setVisibility(View.GONE)
                         binding.imgStatusOnChat.setVisibility(View.VISIBLE)
                     } else {
-                        binding.imgStatusOffChat.setVisibility(View.GONE)
-                        binding.imgStatusOffChat.setVisibility(View.GONE)
+                        binding.imgStatusOnChat.setVisibility(View.GONE)
                     }
                 }
 
@@ -90,6 +87,12 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
         }
+        Utils.updateOnlineStatus(1)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Utils.updateOnlineStatus(0)
     }
     fun getMessage(senderId: String, receiverId: String, context: Context) {
         val reference =
@@ -133,24 +136,24 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    fun getToken() {
-        val databaseReference =
-            FirebaseDatabase.getInstance().getReference(Utils.USERS).child(mReceiverId!!)
-        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val token = snapshot.child("token").value.toString()
-                    val name = snapshot.child(Utils.USER_NAME).value.toString()
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-    }
+//    fun getToken() {
+//        val databaseReference =
+//            FirebaseDatabase.getInstance().getReference(Utils.USERS).child(mReceiverId!!)
+//        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.exists()) {
+//                    val token = snapshot.child("token").value.toString()
+//                    val name = snapshot.child(Utils.USER_NAME).value.toString()
+//
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
+//    }
 
     private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
         try {
@@ -164,4 +167,6 @@ class ChatActivity : AppCompatActivity() {
             Log.e("TAG", e.toString())
         }
     }
+
+
 }

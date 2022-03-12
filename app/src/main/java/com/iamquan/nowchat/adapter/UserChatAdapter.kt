@@ -50,16 +50,6 @@ class UserChatAdapter(
             if (!user.avatar.equals(Utils.DEFAULT)) {
                 Glide.with(context).load(user.avatar).into(binding.imgAvtItemFriend)
             }
-            if (user.status == 1) {
-                binding.imgstatusOffItemFriend.setVisibility(View.GONE)
-                binding.imgstatusOnItemFriend.setVisibility(View.VISIBLE)
-            } else if (user.status == 0) {
-                binding.imgstatusOffItemFriend.setVisibility(View.VISIBLE)
-                binding.imgstatusOnItemFriend.setVisibility(View.GONE)
-            } else {
-                binding.imgstatusOffItemFriend.setVisibility(View.GONE)
-                binding.imgstatusOnItemFriend.setVisibility(View.GONE)
-            }
         }
     }
 }

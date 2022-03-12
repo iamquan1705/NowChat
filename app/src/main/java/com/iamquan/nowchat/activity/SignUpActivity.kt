@@ -69,7 +69,7 @@ class SignUpActivity : AppCompatActivity() {
                         hashMap[Utils.BIRTHDAY] = birthday
                         hashMap[Utils.PASSWORD] = password
                         hashMap[Utils.PHONE] = phone
-                        hashMap[Utils.STATUS] = 1
+                        hashMap[Utils.STATUS] = 0
                         hashMap[Utils.SEARCH] = username.lowercase()
                         val ref = FirebaseDatabase.getInstance().getReference(Utils.USERS)
                         ref.child(uid).setValue(hashMap).addOnSuccessListener {

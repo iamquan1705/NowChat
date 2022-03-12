@@ -1,5 +1,8 @@
 package com.iamquan.nowchat.utils
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+
 object Utils {
     const val AVATAR = "avatar"
     const val USER_NAME = "username"
@@ -23,5 +26,15 @@ object Utils {
     const val CHATS= "chats"
 
     const val TOKEN = "token"
+
+    fun updateOnlineStatus(status: Int) {
+        val firebaseAuth = FirebaseAuth.getInstance()
+        var uid = firebaseAuth.uid
+        val databaseReference =
+            FirebaseDatabase.getInstance().getReference(USERS).child(uid!!)
+        val map = HashMap<String, Any>()
+        map[STATUS] = status
+        databaseReference.updateChildren(map)
+    }
 
 }

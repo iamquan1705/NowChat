@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          sharedPreference = SharedPreferences(this)
-        val str_login_status = sharedPreference!!.getPreferenceString("login_status")
+        val str_login_status = sharedPreference.getPreferenceString("login_status")
         if (str_login_status != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -55,9 +55,9 @@ class LoginActivity : AppCompatActivity() {
         } else {
             mFireBase.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    sharedPreference!!.save_String("email","iamquan")
-                    sharedPreference!!.save_String("password","123")
-                    sharedPreference!!.save_String("login_status", "1")
+                    sharedPreference.save_String("email","iamquan")
+                    sharedPreference.save_String("password","123")
+                    sharedPreference.save_String("login_status", "1")
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()

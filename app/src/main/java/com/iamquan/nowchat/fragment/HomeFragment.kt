@@ -12,6 +12,7 @@ import com.iamquan.nowchat.adapter.UserChatAdapter
 import com.iamquan.nowchat.adapter.UserChatedAdapter
 import com.iamquan.nowchat.databinding.FragmentHomeBinding
 import com.iamquan.nowchat.model.DataMess
+import com.iamquan.nowchat.utils.Utils
 import com.iamquan.nowchat.vm.ChatedViewModel
 
 
@@ -56,12 +57,6 @@ class HomeFragment() : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         })
     }
-
-
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.edtSearch.isFocusable = false

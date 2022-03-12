@@ -13,6 +13,7 @@ import com.iamquan.nowchat.fragment.HomeFragment
 import com.iamquan.nowchat.fragment.ProfileFragment
 import com.iamquan.nowchat.fragment.UserFragment
 import com.iamquan.nowchat.notification.FirebaseService
+import com.iamquan.nowchat.utils.Utils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding :ActivityMainBinding
@@ -51,5 +52,14 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.flFlagment,fragment)
             transaction.commit()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Utils.updateOnlineStatus(0)
+    }
+    override fun onResume() {
+        super.onResume()
+        Utils.updateOnlineStatus(1)
     }
 }
